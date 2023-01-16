@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Buttons from './GraphDisplay/Buttons';
+import Graph from './GraphDisplay/Graph'
 class GraphDisplay extends React.Component {
     constructor(props){
         super(props);
@@ -12,27 +13,22 @@ class GraphDisplay extends React.Component {
                 <Buttons/>
             </div>
             <div style={styles.Grid} id='graph grid'>
-                GRID
+                <Graph/>
             </div>
         </div>
     }
 }
 
-function mapStateToProps(state){
-    return {
-        leftInterval: state.leftInterval,
-        rightInterval: state.rightInterval,
-        pace: state.pace,
-        fns: state.fns
-    }
-}
 
 
 
 const styles={
-    Warper: {},
+    Warper: {
+        display: 'flex',
+        flexDirection: 'row'
+    },
     Parameters: {},
     Grid: {}
 }
 
-export default connect(mapStateToProps, null)(GraphDisplay);
+export default GraphDisplay;

@@ -8,20 +8,29 @@ function checkParameter(v){
     else{
         let aux = v.split('.')
         //one dot only && no characters
-        return (aux.length <= 2 && aux.every((s) => !s.match(/\D/g))) ? true: false
+        return (aux.length <= 2 && aux.every((s) => {
+            
+            let signal = (s[0] == '-') ? s.slice(1) : s
+            return (!signal.match(/\D/g)) 
+            
+        })) ? true: false
     
     }
     
+}
+
+function setStringToNumber(s){
+    let signal = (s[0] == '-') ? false: true
+    s = s.split('.')
+    let number = (s.length == 2) ? parseInt(s[0].concat(s[1]))/(10**s[1].length) : parseInt(s[0])
+    return signal ? number : -number
 }
 
 function logBase(value, base){
     return Math.log(value)/Math.log(base)
 }
 
-function setStringToNumber(s){
-    s = s.split('.')
-    return (s.length == 2) ? parseInt(s[0].concat(s[1]))/(10**s[1].length) : parseInt(s[0])
-}
+
 
 function getValue(req,res){
     if (Object.keys(req.body).every((val) => checkParameter(req.body[val]))){
