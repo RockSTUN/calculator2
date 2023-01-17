@@ -41,6 +41,16 @@ class Buttons extends React.Component {
                 aux.pop()
             }
             
+            
+            const functionParameters = {
+                min: document.getElementById('min').value,
+                max: document.getElementById('max').value,
+                p: aux,
+                pace: document.getElementById('pace').value
+            }
+            
+            this.props.receiveFunction(functionParameters)
+            
             const reqOptions = {
                 method: 'POST',
 //                 mode: 'no-cors',
@@ -48,14 +58,7 @@ class Buttons extends React.Component {
                     'Content-Type':'application/json',
                     'Access-Control-Allow-Origin':'*'
                 },
-                body: JSON.stringify({
-                    
-                    min: document.getElementById('min').value,
-                    max: document.getElementById('max').value,
-                    p: aux,
-                    pace: document.getElementById('pace').value
-                    
-                })
+                body: JSON.stringify(functionParameters)
             
 
             }
@@ -149,7 +152,8 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
     return {
         changeParameters: (p,f) => dispatch({type: 'CHANGE_PARAMETERS',newFn: f, newParams: p}),
-        receiveData: (data) => dispatch({type: 'RECEIVE_DATA', x: data.x, y: data.y})
+        receiveData: (data) => dispatch({type: 'RECEIVE_DATA', x: data.x, y: data.y}),
+        receiveFunction: (functionParameters) => dispatch({type: 'RECEIVE_FUNCTION', newFunction: functionParameters})
     }
 }
 

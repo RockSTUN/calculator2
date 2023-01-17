@@ -21,10 +21,10 @@ function checkParameter(v){
 }
 
 function setStringToNumber(s){
-    let signal = (s[0] == '-') ? false: true
+//     let signal = (s[0] == '-') ? false: true
     s = s.split('.')
     let number = (s.length == 2) ? parseInt(s[0].concat(s[1]))/(10**s[1].length) : parseInt(s[0])
-    return signal ? number : -number
+    return number
 }
 function getValue(req,res){
     if (Object.keys(req.body).every((val) => checkParameter(req.body[val]))){

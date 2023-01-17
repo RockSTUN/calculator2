@@ -5,11 +5,20 @@ const INITIAL_STATE={
     fn: 'NONE',
     fnParameters: [],
     order: 1,
-    data: {}
+    data: {},
+    fP: {},
+    zero: 0,
+    precision: 0
 }
 
 function reducer(state = INITIAL_STATE, action){
     switch (action.type){
+        case 'CHANGE_PRECISION':
+            return {...state, precision: action.precision}
+        case 'GETZERO':
+            return {...state, zero: action.zero}
+        case 'RECEIVE_FUNCTION':
+            return {... state, fP: action.newFunction}
         case 'RECEIVE_DATA':
             return {...state, data: {x: action.x, y: action.y}}
         case 'CHANGE_ORDER':
