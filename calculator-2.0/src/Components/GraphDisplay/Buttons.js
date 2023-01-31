@@ -36,7 +36,7 @@ class Buttons extends React.Component {
         handleClick(){
             let aux = []
             document.getElementById('parameters').childNodes.forEach((v) => aux.push(v.value))
-            if(this.props.fn == 'POL')
+            if(this.props.fn === 'POL')
             {
                 aux.pop()
             }
@@ -55,17 +55,18 @@ class Buttons extends React.Component {
                 method: 'POST',
 //                 mode: 'no-cors',
                 headers: {
-                    'Content-Type':'application/json',
-                    'Access-Control-Allow-Origin':'*'
+                    'X-Parse-Application-Id': 'Bvzncb1T1uvIDbNiT3WeyErviPbaGhlQ0MISiUUd',
+                    'X-Parse-REST-API-Key': '7tJ9Y0DTXqOGG1otEzWd3O7c7MuDjhgqZu0Jh5Ko',
+                    'Content-Type':'application/json'
+//                     'Access-Control-Allow-Origin':'*'
                 },
                 body: JSON.stringify(functionParameters)
             
 
             }
                         
-            fetch(`http://localhost:9000/calculate/${this.props.fn}`, reqOptions)
-            .then((response) => response.json()    
-            )
+            fetch(`https://calculatorapi.b4a.app/calculate/${this.props.fn}`, reqOptions)
+            .then((response) => response.json())
             .then((response) => 
             {
                 console.log(response)
@@ -95,7 +96,7 @@ class Buttons extends React.Component {
             </div>
             <div style={styles.parameters} id='parameters'>
                 {this.props.fnParameters.map((p) => <input id={p} key={p} placeholder={p} />)}
-                {(this.props.fn == 'POL') ? <select onChange={this.handleOrder}>
+                {(this.props.fn == 'POL') ? <select id = 's' onChange={this.handleOrder}>
                         <option name='1' defaultValue>{1}</option>
                         <option name='2' >{2}</option>
                         <option name='3' >{3}</option>

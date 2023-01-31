@@ -6,11 +6,35 @@ class Navigation extends React.Component {
         super(props)
     }
     render(){
-        return <ul>
-            <li><NavLink to='/Calculator'>Calculator</NavLink></li>
-            <li><NavLink to='/Zeros'>Find Zeros</NavLink></li>
-            <li><NavLink to='/GraphDisplay'>Display Graph</NavLink></li>
-        </ul>
+        return <div id='nani' style={styles.wraper}>
+            <NavLink id='pages' style={styles.comps} to='/'>Home</NavLink>
+            <NavLink id='pages' style={styles.comps} to='/Calculator'>Calculator</NavLink>
+            <NavLink id='pages' style={styles.comps} to='/GraphDisplay'>Display Graph</NavLink>
+            <NavLink id='pages' style={styles.comps} to='/Zeros'>Find Zeros</NavLink>
+        </div>
+    }
+}
+
+const styles={
+    wraper: {
+        display: 'flex',
+        flexDirection: 'row',
+        height: 80,
+        alignItems: 'center',
+        margin: 20,
+        borderWidth: 20,
+        borderColor: 'black',
+        borderRadius: 4
+    },
+    comps: {
+        margin: 20,
+        color: 'green',
+        textShadow: '1px 1px',
+        textDecoration: 'none',
+        fontWeight: 'bold',
+        cursor: 'pointer',
+        border: 'solid green 3px',
+        padding: 6
     }
 }
 

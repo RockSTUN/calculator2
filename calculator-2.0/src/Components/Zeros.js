@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import newtonRaphson from './findZero'
 class Zeros extends React.Component {
     constructor(props){
         super(props);
@@ -13,14 +12,13 @@ class Zeros extends React.Component {
         return (y.every((value) => value > 0) || y.every((value) => value < 0)) ? false : true
     }
     handlePrecision(event){
-        const precision = event.target.value
-        console.log(document.getElementById('precision').style.borderColor == 'red')
+        var precision = event.target.value;
         document.getElementById('precision').style.borderColor = ''
         document.getElementById('warning').innerHTML = ''
         if (precision.match(/\./g)){
             if (precision.match(/\./g).length == 1){
                 let aux = precision.split('.')
-                this.props.getPrecision(parseInt(aux[0].concat(aux[1])/(10**aux[1].length)))
+                this.props.getPrecision(parseInt(aux[0].concat(aux[1]))/(10**aux[1].length))
             }
             else{
                 document.getElementById('precision').style.borderColor = 'red'
@@ -33,15 +31,36 @@ class Zeros extends React.Component {
                 document.getElementById('warning').innerHTML = 'Apenas números e 1 ponto'
             }
             else{
+                console.log(precision)
                 this.props.getPrecision(parseInt(precision))
             }
         }
     }
     calculate(){
-        //verifica se tem zero no intervalo
-        if (this.checkZero(this.props.data.y)){
-        this.props.getZero(newtonRaphson(this.props.fn,this.props.fP, this.props.precision))    
+        console.log('PRECISION: ',this.props.precision)
+        const options = {
+            method: 'POST',
+            headers: {
+                    'X-Parse-Application-Id': 'Bvzncb1T1uvIDbNiT3WeyErviPbaGhlQ0MISiUUd',
+                    'X-Parse-REST-API-Key': '7tJ9Y0DTXqOGG1otEzWd3O7c7MuDjhgqZu0Jh5Ko',
+                    'Content-Type':'application/json'
+            },
+            body: JSON.stringify(
+                {
+                    arr: this.props.data.y,
+                    fn : this.props.fn,
+                    fP : this.props.fP,
+                    precision : this.props.precision
+                }
+            )
         }
+        fetch('https://calculatorapi.b4a.app/calculate/zero',options)
+        .then((response) => response.json())
+        .then((response) => {
+            console.log(response);
+            this.props.getZero(response);
+        })
+        
         
     }
     render(){

@@ -43,12 +43,15 @@ class Graph extends React.Component {
         
         var params = []
         document.getElementById('parameters').childNodes.forEach((n) => {
-            let aux = {}
-            aux[n.id] = n.value
-            params.push(aux)
+            console.log(n)
+            if (n.id != 's'){
+                let aux = {}
+                aux[n.id] = n.value
+                params.push(aux)
+                
+            }
             
         })
-        params.pop()
         params = (params.map((n) => Object.keys(n).map(v => `${v} = ${n[v]}`)))
         const element = d3.select('#selector').append('svg').attr('width', w).attr('height', h)
         const elementText = d3.select('#selector').append('h2').text(`Function: ${this.props.fn}`).append('h3').text(`Parameters: ${params}\nPace: ${this.props.pace}`)
