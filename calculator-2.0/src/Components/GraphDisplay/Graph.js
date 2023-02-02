@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
 import * as d3 from 'd3';
 
@@ -8,9 +8,13 @@ class Graph extends React.Component {
         this.handleRender = this.handleRender.bind(this);
     }
     
+   
     
     
     handleRender(){
+        
+        document.getElementById('plots').innerHTML = '';
+        
         if (!this.props.data.x){
             console.log('Please set the parameters')
         }
@@ -20,8 +24,8 @@ class Graph extends React.Component {
             dataset.push([this.props.data.x[i],this.props.data.y[i]])
         }
         console.log(dataset)
-        const h = 500;
-        const w = 500;
+        const h = 600;
+        const w = 600;
         const padding = 60;
         var [xMIN, xMAX , yMIN, yMAX] = [0,0,0,0]
         if (Math.abs(this.props.data.x[0]) > Math.abs(this.props.data.x[this.props.data.x.length -1])){
@@ -42,7 +46,7 @@ class Graph extends React.Component {
         }
         
         var params = []
-        document.getElementById('parameters').childNodes.forEach((n) => {
+        document.getElementById('gp2').childNodes.forEach((n) => {
             console.log(n)
             if (n.id != 's'){
                 let aux = {}
@@ -53,8 +57,8 @@ class Graph extends React.Component {
             
         })
         params = (params.map((n) => Object.keys(n).map(v => `${v} = ${n[v]}`)))
-        const element = d3.select('#selector').append('svg').attr('width', w).attr('height', h)
-        const elementText = d3.select('#selector').append('h2').text(`Function: ${this.props.fn}`).append('h3').text(`Parameters: ${params}\nPace: ${this.props.pace}`)
+        const element = d3.select('#plots').append('div').attr('id','plotContainer').append('svg').attr('width', w).attr('height', h).attr("id", 'graph')
+        const elementText = d3.select('#plots').append('h3').attr('id','graphtext').text(`Function: ${this.props.fn}`).append('h4').text(`Parameters: ${params}\nPace: ${this.props.pace}`)
         
         //Xaxis
         const xScale = d3.scaleLinear()
@@ -70,12 +74,14 @@ class Graph extends React.Component {
         .data(dataset)
         .enter()
         .append("circle")
+        .attr('id', 'circulo')
         .attr("cx", d => xScale(d[0]))
         .attr("cy", d => yScale(d[1]))
         .attr("r", 3)
         
         const xAxis = d3.axisBottom(xScale)
         const yAxis = d3.axisLeft(yScale)
+        
         
         element.append("g")
             .attr("transform", `translate(0, ${h/2})`)
@@ -84,12 +90,14 @@ class Graph extends React.Component {
             .attr("transform", `translate(${w/2}, 0)`)
             .call(yAxis)        
         
+        xAxis.select('.domain').attr('stroke','red')
+        
         }
         
     }
     render(){
         return <div id='selector'>
-            <button onClick={this.handleRender} className={'btn btn-dark'}>Render</button>
+            <button onClick={this.handleRender} id ='btnselector' className={'btn btn-dark'}>Render</button>
         </div>
     }
 }

@@ -26,7 +26,7 @@ class Model extends React.Component{
         }
     }
     render(){
-        return <div>
+        return <div id='function'>
             {this.handleFunction()}
         </div>
     }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Buttons from './GraphDisplay/Buttons';
 class Zeros extends React.Component {
     constructor(props){
         super(props);
@@ -37,7 +38,6 @@ class Zeros extends React.Component {
         }
     }
     calculate(){
-        console.log('PRECISION: ',this.props.precision)
         const options = {
             method: 'POST',
             headers: {
@@ -57,26 +57,37 @@ class Zeros extends React.Component {
         fetch('https://calculatorapi.b4a.app/calculate/zero',options)
         .then((response) => response.json())
         .then((response) => {
-            console.log(response);
+            console.log()
             this.props.getZero(response);
+            document.getElementById('answer').innerHTML = (typeof(response) == 'object') ? 'Something went wrong': (response == 'NO ZEROES IN THE INTERVAL') ? response : `x = ${response}`;
         })
+        .catch((err) => document.getElementById('answer').innerHTML('Something went wrong'))
+            
+        
+        
+        
         
         
     }
     render(){
         return <div id='Zeros'>
-        <h1>Zeros</h1>
+        <h1 style={styles.title}>Zeros</h1>
+            <h2 style={{ fontWeight: 'bold', marginLeft: 10 }}>PARAMETERS: </h2>
+            
+            <div id='zeroFunction'>
+            <Buttons show={false}/>
+            </div>
+            
             <div>
                 <div id='zeroFunction'>
-                <h3>Function: {this.props.fn}</h3>
-                <input id='precision' placeholder='Precision' onChange={this.handlePrecision}/>
+                <h3>Set the precison: </h3>
+                <input id='precision' placeholder='0.01' onChange={this.handlePrecision}/>
                 <h5 id='warning'></h5>
-                    <ul>{this.props.fP ? Object.keys(this.props.fP).map((k) => <li key={k}>{`${k} : ${this.props.fP[k]}`}</li>) : null}</ul>
                 </div>
                 <div id='calculate'>
-                    <button onClick={this.calculate} className={'btn btn-dark'}>Calculate</button>
+                    <button style={{ width: '100%' }} onClick={this.calculate} className={'btn btn-dark'}>Calculate</button>
                 </div>
-                <h3>{`X = ${this.props.zero}`}</h3>
+                <div id='answer'></div>
             </div>
         </div>
     }
@@ -88,13 +99,23 @@ function mapStateToProps(state){
         fn: state.fn,
         data: state.data,
         precision: state.precision,
-        zero: state.zero
+        zero: state.zero,
+        fnParameters: state.fnParameters
     }
 }
 function mapDispatchToProps(dispatch){
     return {
         getZero : (z) => dispatch({type: 'GETZERO' , zero: z}),
         getPrecision: (prec) => dispatch({type: 'CHANGE_PRECISION', precision: prec})
+    }
+}
+
+const styles={
+     title: {
+        alignSelf: 'center',
+        border: 'solid 2px',
+        borderRadius: 5,
+        padding: 20
     }
 }
 

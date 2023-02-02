@@ -8,7 +8,7 @@ const INITIAL_STATE={
     data: {},
     fP: {},
     zero: 0,
-    precision: 0
+    precision: 0.01
 }
 
 function reducer(state = INITIAL_STATE, action){

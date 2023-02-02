@@ -35,7 +35,11 @@ class Buttons extends React.Component {
         }
         handleClick(){
             let aux = []
-            document.getElementById('parameters').childNodes.forEach((v) => aux.push(v.value))
+//             console.log(document.getElementById('gp2').childNodes)
+            document.getElementById('gp2').childNodes.forEach((v) => {
+                console.log('VALUE: ', v.value)
+                aux.push(v.value)
+            })
             if(this.props.fn === 'POL')
             {
                 aux.pop()
@@ -46,7 +50,7 @@ class Buttons extends React.Component {
                 min: document.getElementById('min').value,
                 max: document.getElementById('max').value,
                 p: aux,
-                pace: document.getElementById('pace').value
+                pace: this.props.show ? document.getElementById('pace').value : '0.1'
             }
             
             this.props.receiveFunction(functionParameters)
@@ -69,7 +73,6 @@ class Buttons extends React.Component {
             .then((response) => response.json())
             .then((response) => 
             {
-                console.log(response)
                 switch(response){
                     case 'ERROR':
                         console.log('Parâmetros na forma errada.\nEx.: \'a = 1.\' ou \'a = 2\' ou \'a = 3.3\'')
@@ -80,8 +83,8 @@ class Buttons extends React.Component {
             })
         }
     render(){
-        return <div>
-            <div>
+        return <div id='graphParameters'>
+            <div id='gp1'>
                 <select onChange={this.handleChangeFn} name='functions'>
                     <option name='f' defaultValue>Functions</option>
                     <option name='polynome'>Pol</option>
@@ -94,7 +97,7 @@ class Buttons extends React.Component {
                 </div>
                 
             </div>
-            <div style={styles.parameters} id='parameters'>
+            <div id='gp2'>
                 {this.props.fnParameters.map((p) => <input id={p} key={p} placeholder={p} />)}
                 {(this.props.fn == 'POL') ? <select id = 's' onChange={this.handleOrder}>
                         <option name='1' defaultValue>{1}</option>
@@ -104,21 +107,21 @@ class Buttons extends React.Component {
                         <option name='5' >{5}</option>
                         </select> : null}
             </div>
-            <div style={styles.interval} id='interval'>
+            <div id='gp3'>
                 <h4>Interval: </h4>
                 <input id='min' placeholder='min'/>
                 <input id='max' placeholder='max'/>
-                <h4>Select pace: </h4>
-                <select id='pace'>
+                {this.props.show ? <h4>Select pace: </h4>: null}
+                {this.props.show ? <select id='pace'>
                     <option name='pace'>Pace</option>
                     <option name='0.05'>0.05</option>
                     <option name='0.1'>0.1</option>
                     <option name='0.5'>0.5</option>
                     <option name='1'>1</option>
-                </select>
+                </select> : null}
             </div>
-            <div>
-                <button onClick={this.handleClick} >SUBMIT CHANGES</button>
+            <div id='gp4'>
+                <button id='btnsubmit' className={'btn btn-dark'} onClick={this.handleClick} >SUBMIT CHANGES</button>
             </div>
         </div>
     }

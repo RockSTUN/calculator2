@@ -9,7 +9,9 @@ class Calculator extends React.Component {
 //         console.log(props)
     }
     render(){
-        return <div style={styles.Calc} id='Calculator'>
+        return <div>
+            <h1 style={styles.title}>Calculator</h1>
+            <div style={styles.Calc} id='Calculator'>
             <div style={styles.TopDisp}>{this.props.topdisp}</div>
             <div id='displayer' style={styles.Disp}>{this.props.disp}</div>
             <div style={styles.Pad}>
@@ -38,6 +40,7 @@ class Calculator extends React.Component {
             </div>
             
         </div>
+        </div>
     }
 }
 const styles={
@@ -46,40 +49,52 @@ const styles={
         flexDirection: 'column',
         alignItems:'center',
         margin: 'auto',
-        padding: '5px',
-        border: 'solid',
-        borderColor: 'green',
-        width: 400
+        border: 'solid 5px',
+        borderColor: 'black',
+        backgroundColor: 'darkgreen',
+        width: 400,
+        borderRadius: 10
     },
     Disp: {
-        border: 'solid',
+        border: 'solid 4px',
+        margin: 10,
+        paddingRight: 10,
+        paddingBottom: 10,
         display: 'flex',
         justifyContent: 'center',
         flexDirection: 'column',
-        borderColor: 'red',
-        width: 400,
+        borderColor: 'black',
+        width: 375,
         height: 75,
         alignItems: 'flex-end',
         fontSize: 50,
-        fontFamily: 'digital-font-clock'
+        fontFamily: 'digital-font-clock',
+        color: 'black',
+        textShadow: '1px 1px black',
+        backgroundColor: 'grey'
     },
     TopDisp: {
-        border: 'solid',
         display: 'flex',
         justifyContent: 'space-between',
         flexDirection: 'column',
-        borderColor: 'blue',
-        width: 400,
+        border: 'solid 4px',
+        borderColor: 'black',
+        width: 375,
         height: 40,
+        marginTop: 10,
+        paddingBottom: 40,
+        paddingRight: 10,
         alignItems: 'flex-end',
-        fontSize: 20,
-        fontFamily: 'digital-font-clock'
+        fontSize: 24,
+        fontFamily: 'digital-font-clock',
+        color: 'black',
+        textShadow: '1px 1px black',
+        backgroundColor: 'green'
     },
     Pad: {
         display: 'flex',
         flexDirection: 'column',
-        border: 'solid',
-        borderColor: 'black',
+        padding: 10,
         height: 400,
         width: 400
     },
@@ -115,6 +130,12 @@ const styles={
     plus: {
         display: 'flex',
         flex: 1
+    },
+    title: {
+        alignSelf: 'center',
+        border: 'solid 2px',
+        borderRadius: 5,
+        padding: 20
     }
     
 }

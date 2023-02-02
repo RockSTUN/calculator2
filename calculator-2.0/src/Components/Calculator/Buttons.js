@@ -120,7 +120,7 @@ class Button extends React.Component {
     }
     render(){
         return <div style={this.handleStyle()} id='buttons'>
-            <button style={{ display: 'block', width: '100%', height: '100%'}} onClick={this.handleClick}>{this.props.b}</button>
+            <button style={styles.butt} onClick={this.handleClick}>{this.props.b}</button>
         </div>
     }
 }
@@ -137,8 +137,17 @@ const styles = {
     },
     Equals: {
         flex: 1,
-        color: 'red',
-        backgroundColor: 'red'
+    },
+    butt: {
+         display: 'block',
+         width: '100%',
+         height: '100%',
+         border: 'solid black 2px',
+         borderRadius: 10,
+         backgroundColor: 'grey',
+         color: 'black',
+         fontFamily: 'Courier New',
+         fontSize: 30
     }
 };
 

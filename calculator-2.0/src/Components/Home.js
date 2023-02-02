@@ -23,10 +23,18 @@ class Home extends React.Component{
                 <div style={styles.containers}>
                     <div id='text'>
                         <h2>Find Zeros</h2>
-                        <p>With the function and interval set on the <em>Display Graph</em> functionality, finds the zero of the function in the interval (if there is any). Based on Newton-Raphson method</p>
+                        <p>Finds a zero from the function and it's parameters (if tere is any) based on Newton-Raphson's method</p>
                     </div>
                 </div>
             </div>
+            
+                <div id='notes'>
+                    <h4>Info: </h4>
+                    <ul>
+                        <li>Front End made in React hosted in <a id ='anchor' href='https://firebase.google.com/' target='_blank'>Firebase</a></li>
+                        <li>Back End made in Express.js hosted in <a id='anchor' href='https://www.back4app.com/'>Back4app</a></li>
+                    </ul>
+                </div>
         </div>
     }
 }

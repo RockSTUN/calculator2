@@ -7,14 +7,19 @@ class GraphDisplay extends React.Component {
         super(props);
     }
     render(){
-        return <div style={styles.Warper} id='graphWarper'>
+        return <div id='graphWarper'>
+            <h1 style={styles.title}>Display Graph</h1>
+            
+            <h2 style={{ fontWeight: 'bold', marginLeft: 10 }}>PARAMETERS: </h2>
             <div style={styles.Parameters} id='graphParameters'>
-                PARAMETERS
-                <Buttons/>
+                <Buttons show={true}/>
             </div>
             <div style={styles.Grid} id='graph grid'>
                 <Graph/>
             </div>
+            <div id='plots'>
+            </div>
+        
         </div>
     }
 }
@@ -23,12 +28,18 @@ class GraphDisplay extends React.Component {
 
 
 const styles={
-    Warper: {
+    Parameters: {
         display: 'flex',
-        flexDirection: 'row'
+        flexDirection: 'column',
+        marginLeft: 20
     },
-    Parameters: {},
-    Grid: {}
+    Grid: {},
+    title: {
+        alignSelf: 'center',
+        border: 'solid 2px',
+        borderRadius: 5,
+        padding: 20
+    }
 }
 
 export default GraphDisplay;
